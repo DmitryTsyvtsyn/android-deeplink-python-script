@@ -3,7 +3,7 @@ import getopt
 import subprocess
 
 def printHelp():
-    print('Example:\n{} -a /Android/platform-tools/adb -d https://example.com/deeplink_path/111'.format(sys.argv[0]))
+    print('Incorrect parameters, example:\n{} -a "/Android/platform-tools/adb" -d "https://example.com/deeplink_path/111"'.format(sys.argv[0]))
     sys.exit()
 
 def main():
@@ -29,7 +29,7 @@ def main():
     if not deeplink:
         printHelp()
 
-    deeplink = deeplink.replace('&', '\&').replace(';', '\;')
+    deeplink = deeplink.replace('&', '\&').replace(';', '\;').replace('|', '\|')
 
     subprocess.call('{} shell am start -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d "{}"'.format(adb_path, deeplink), shell=True)
 
